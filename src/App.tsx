@@ -4,7 +4,7 @@ import Projects from "./components/Projects";
 
 const App: React.FC = () => {
   return (
-    <div className="App">
+    <div className="min-h-screen">
       <Projects />
     </div>
   );
