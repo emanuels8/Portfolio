@@ -1,6 +1,7 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { Canvas } from "@react-three/fiber";
+import { Preload } from "@react-three/drei";
 import FloatingText3D from "./FloatingText3D";
 import SceneLighting from "./SceneLighting";
 import SceneBackground from "./SceneBackground";
@@ -39,6 +40,7 @@ const Scene: React.FC = () => {
               speed={keyword.speed}
             />
           ))}
+          <Preload all />
         </Suspense>
       </Canvas>
     </div>
