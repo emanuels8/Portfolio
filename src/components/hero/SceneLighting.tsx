@@ -4,8 +4,6 @@ import { Environment } from "@react-three/drei";
 const SceneLighting: React.FC = () => {
   return (
     <>
-      <color attach="background" args={["transparent"]} />
-
       <ambientLight intensity={0.8} />
       <directionalLight position={[10, 10, 5]} intensity={2} castShadow />
       <directionalLight
