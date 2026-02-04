@@ -1,9 +1,17 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { selectedWork } from "@/components/data";
 
 const Projects: React.FC = () => {
   return (
     <section id="projects" className="mx-auto w-full max-w-5xl px-6 py-20">
+      <Link
+        to="/"
+        className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground mb-8"
+      >
+        ← Back to Home
+      </Link>
+
       <header className="mb-16 max-w-2xl">
         <h2 className="text-4xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
           Selected Projects

@@ -2,10 +2,18 @@ import React, { Suspense } from "react";
 
 const Scene = React.lazy(() => import("./Scene"));
 
+const LoadingFallback = () => (
+  <div className="pointer-events-none fixed inset-0 hidden md:block -z-10 bg-background">
+    <div className="absolute inset-0 flex items-center justify-center">
+      <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary/30 border-t-primary" />
+    </div>
+  </div>
+);
+
 const Hero: React.FC = () => {
   return (
     <section className="relative mx-auto w-full max-w-5xl overflow-hidden px-6 pt-24 pb-16">
-      <Suspense fallback={null}>
+      <Suspense fallback={<LoadingFallback />}>
         <Scene />
       </Suspense>
 
