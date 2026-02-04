@@ -4,25 +4,25 @@
 
 @layer base {
   :root {
-    --background: 42 33% 96%;
-    --foreground: 222.2 84% 6%;
-    --card: 42 33% 96%;
-    --card-foreground: 222.2 84% 6%;
-    --popover: 42 33% 96%;
-    --popover-foreground: 222.2 84% 6%;
-    --primary: 217 78% 46%;
+    --background: 40 30% 97%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 217 75% 46%;
     --primary-foreground: 210 40% 98%;
-    --secondary: 42 26% 92%;
+    --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 42 23% 93%;
-    --muted-foreground: 215.4 16.3% 42%;
-    --accent: 42 26% 92%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-    --border: 42 18% 86%;
-    --input: 42 18% 86%;
-    --ring: 217 78% 46%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 217 75% 46%;
     --radius: 0.5rem;
   }
 
@@ -55,5 +55,13 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

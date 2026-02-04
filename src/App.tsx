@@ -1,11 +1,11 @@
 import React from "react";
 import "./App.css";
-import Projects from "./components/Projects";
+import Hero from "./components/Hero";
 
 const App: React.FC = () => {
   return (
-    <div className="min-h-screen">
-      <Projects />
+    <div className="flex min-h-screen items-center justify-center">
+      <Hero />
     </div>
   );
 };
