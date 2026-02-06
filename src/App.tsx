@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Hero from "./components/hero/Hero";
-import Projects from "./components/Projects";
+import Work from "./components/Work";
 import Footer from "./components/Footer";
 import NotFound from "./components/NotFound";
 
@@ -16,7 +16,7 @@ const App: React.FC = () => {
           element={
             <div className="flex min-h-screen flex-col">
               <div className="flex flex-1 items-center justify-center">
-                <Projects />
+                <Work />
               </div>
               <Footer />
             </div>
