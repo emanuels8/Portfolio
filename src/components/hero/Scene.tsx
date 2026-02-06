@@ -1,52 +1,102 @@
 import React, { Suspense, useEffect, useState } from "react";
-import { createPortal } from "react-dom";
 import { Canvas } from "@react-three/fiber";
 import { Preload } from "@react-three/drei";
+import * as THREE from "three";
 import FloatingText3D from "./FloatingText3D";
 import SceneLighting from "./SceneLighting";
-import SceneBackground from "./SceneBackground";
-import { keywords } from "./SceneKeywords";
+import type { Keyword } from "./SceneKeywords";
 
-const Scene: React.FC = () => {
-  const [mount, setMount] = useState<HTMLElement | null>(null);
+function useDebouncedResize(delay = 400) {
+  const [dimensions, setDimensions] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+  const [isResizing, setIsResizing] = useState(false);
 
   useEffect(() => {
-    setMount(document.body);
-  }, []);
+    let timeout: ReturnType<typeof setTimeout>;
+    const handleResize = () => {
+      setIsResizing(true);
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        setDimensions({ width: window.innerWidth, height: window.innerHeight });
+        setIsResizing(false);
+      }, delay);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      clearTimeout(timeout);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [delay]);
 
-  const content = (
-    <div className="pointer-events-none fixed inset-0 hidden md:block -z-10">
-      <Canvas
-        dpr={[1, 2]}
-        frameloop="demand"
-        camera={{ position: [0, 0, 12], fov: 85 }}
-        gl={{
-          antialias: true,
-          alpha: false,
-          powerPreference: "high-performance",
-        }}
-        style={{ width: "100vw", height: "100vh" }}
-      >
-        <Suspense fallback={null}>
-          <SceneBackground />
-          <SceneLighting />
-          {keywords.map((keyword, index) => (
-            <FloatingText3D
-              key={index}
-              position={keyword.position}
-              color={keyword.color}
-              text={keyword.text}
-              size={keyword.size}
-              speed={keyword.speed}
-            />
-          ))}
-          <Preload all />
-        </Suspense>
-      </Canvas>
-    </div>
-  );
+  return { ...dimensions, isResizing };
+}
 
-  return mount ? createPortal(content, mount) : null;
+type ScenePanelProps = {
+  keywords: Keyword[];
 };
 
-export default Scene;
+const ScenePanel: React.FC<ScenePanelProps> = ({ keywords }) => {
+  const { width, isResizing } = useDebouncedResize(350);
+
+  // Responsive FOV
+  let fov = 55;
+  let camZ = 14;
+  if (width < 1024) {
+    fov = 60;
+    camZ = 16;
+  }
+  if (width < 768) {
+    fov = 65;
+    camZ = 18;
+  }
+
+  if (isResizing) {
+    return (
+      <div className="flex h-full w-full items-center justify-center">
+        <div className="h-5 w-5 animate-spin rounded-full border-2 border-slate-200 border-t-teal-400" />
+      </div>
+    );
+  }
+
+  return (
+    <Canvas
+      dpr={[1, 2]}
+      frameloop="demand"
+      camera={{ position: [0, 0, camZ], fov }}
+      gl={{
+        antialias: true,
+        alpha: false,
+        powerPreference: "high-performance",
+      }}
+      onCreated={({ gl, scene }) => {
+        gl.setClearColor("#f8f6f1", 1);
+        scene.background = new THREE.Color("#f8f6f1");
+      }}
+      style={{ width: "100%", height: "100%" }}
+    >
+      <Suspense fallback={null}>
+        <SceneLighting />
+        {keywords.map((keyword, index) => (
+          <FloatingText3D
+            key={index}
+            position={keyword.position}
+            color={keyword.color}
+            text={keyword.text}
+            size={keyword.size}
+            speed={keyword.speed}
+            avoidCenter={false}
+            centerRadius={0}
+            avoidOverlap={false}
+            keepInView={true}
+            viewMargin={0.65}
+          />
+        ))}
+        <Preload all />
+      </Suspense>
+    </Canvas>
+  );
+};
+
+export default ScenePanel;
