@@ -89,8 +89,9 @@ const Hero: FC = () => {
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white/80 px-7 py-3.5 text-sm font-semibold text-slate-700 shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-teal-300 hover:text-teal-700 hover:shadow-md hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-2"
                 onClick={downloadResume}
               >
+                View Resume
                 <svg
-                  className="h-4 w-4"
+                  className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -99,10 +100,9 @@ const Hero: FC = () => {
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                    d="M13 7l5 5m0 0l-5 5m5-5H6"
                   />
                 </svg>
-                Download Resume
               </button>
             </div>
 
