@@ -61,8 +61,8 @@ const Hero: FC = () => {
 
             <p className="mx-auto max-w-lg text-base leading-relaxed text-muted-foreground/90 md:mx-0 md:text-lg">
               4+ years building scalable web applications with TypeScript,
-              React, Go &amp; Ruby — from cloud infrastructure to polished user
-              interfaces.
+              React, Go &amp; Ruby. Experienced in AWS cloud services,
+              event-driven architectures, and AI powered features.
             </p>
 
             <div className="flex flex-wrap justify-center gap-4 pt-4 md:justify-start">
