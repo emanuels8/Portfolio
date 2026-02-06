@@ -53,8 +53,17 @@
   * {
     @apply border-border;
   }
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
   body {
     @apply bg-background text-foreground;
+  }
+  ::selection {
+    background-color: hsl(175, 70%, 85%);
+    color: hsl(175, 40%, 20%);
   }
 }
 

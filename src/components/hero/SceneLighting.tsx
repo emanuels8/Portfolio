@@ -4,22 +4,27 @@ import { Environment } from "@react-three/drei";
 const SceneLighting: React.FC = () => {
   return (
     <>
-      <ambientLight intensity={0.8} />
-      <directionalLight position={[10, 10, 5]} intensity={2} castShadow />
+      <ambientLight intensity={0.6} color="#faf8f5" />
       <directionalLight
-        position={[-10, -10, -5]}
-        intensity={0.8}
-        color="#38bdf8"
+        position={[8, 12, 6]}
+        intensity={1.8}
+        color="#fff8f0"
+        castShadow
       />
-      <pointLight position={[0, 0, 10]} intensity={1.2} color="#60a5fa" />
+      <directionalLight
+        position={[-6, -4, -3]}
+        intensity={0.5}
+        color="#e0f2fe"
+      />
+      <pointLight position={[0, 0, 8]} intensity={0.8} color="#5eead4" />
       <spotLight
-        position={[0, 10, 0]}
-        angle={0.3}
+        position={[0, 14, 2]}
+        angle={0.4}
         penumbra={1}
-        intensity={1.5}
+        intensity={0.9}
+        color="#f0fdfa"
       />
-
-      <Environment preset="studio" />
+      <Environment preset="city" />
     </>
   );
 };

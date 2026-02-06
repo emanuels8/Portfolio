@@ -7,14 +7,7 @@ import Projects from "./components/Projects";
 const App: React.FC = () => {
   return (
     <Routes>
-      <Route
-        path="/"
-        element={
-          <div className="flex min-h-screen items-center justify-center">
-            <Hero />
-          </div>
-        }
-      />
+      <Route path="/" element={<Hero />} />
       <Route
         path="/projects"
         element={
