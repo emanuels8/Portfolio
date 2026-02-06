@@ -4,7 +4,7 @@ Personal portfolio showcasing 4+ years of full-stack software engineering experi
 
 ## About
 
-Full-Stack Software Engineer with experience building scalable web applications using TypeScript, React, Go, and Ruby. Proficient in responsive UI development with Tailwind CSS, backend systems with RESTful and GraphQL APIs, and AWS cloud services. Experienced in real-time, event-driven architectures and AI-powered features.
+I am a full-stack software engineer with 4+ years of experience, focusing on building scalable solutions using TypeScript, React, Go, and Ruby. I enjoy creating responsive UIs and developing complex backend systems.
 
 ## Features
 
