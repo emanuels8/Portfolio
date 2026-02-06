@@ -1,5 +1,12 @@
-import React, { useEffect, useMemo, useRef } from "react";
+import React, {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useCallback,
+} from "react";
 import { useFrame, useThree } from "@react-three/fiber";
+import type { ThreeEvent } from "@react-three/fiber";
 import { Text3D, Center } from "@react-three/drei";
 import * as THREE from "three";
 
@@ -53,7 +60,12 @@ const FloatingText3D: React.FC<FloatingText3DProps> = ({
   centerNdcRadiusY = 0.5,
 }) => {
   const ref = useRef<THREE.Group>(null);
-  const mat = useRef<THREE.MeshBasicMaterial>(null);
+  const mat = useRef<THREE.MeshStandardMaterial>(null);
+
+  const [hovered, setHovered] = useState(false);
+  const [clicked, setClicked] = useState(false);
+  const clickTime = useRef(0);
+  const wigglePhase = useRef(0);
 
   const { invalidate, camera, size: viewportSize } = useThree();
   const idRef = useRef<string>(`label_${Math.random().toString(36).slice(2)}`);
@@ -81,13 +93,7 @@ const FloatingText3D: React.FC<FloatingText3DProps> = ({
   const camSpace = useMemo(() => new THREE.Vector3(), []);
   const centerAvoid = useMemo(() => new THREE.Vector3(), []);
 
-  const fillColor = useMemo(() => {
-    const c = new THREE.Color(color);
-    const hsl = { h: 0, s: 0, l: 0 };
-    c.getHSL(hsl);
-    c.setHSL(hsl.h, hsl.s, THREE.MathUtils.clamp(hsl.l * 0.6, 0, 1));
-    return c;
-  }, [color]);
+  const fillColor = useMemo(() => new THREE.Color(color), [color]);
 
   const radius = useMemo(() => {
     const len = Math.max(1, text.trim().length);
@@ -266,23 +272,122 @@ const FloatingText3D: React.FC<FloatingText3DProps> = ({
     if (item) item.pos.copy(ref.current.position);
 
     ref.current.quaternion.copy(camera.quaternion);
+
+    // --- Painting-style idle wiggle (gentle z-rotation sway) ---
+    const idleWiggle = Math.sin(t * speed * 0.6 + base.y * 2.0) * 0.04;
+    ref.current.rotation.z += idleWiggle;
+
+    // --- Hover: faster wiggle + slight scale ---
+    if (hovered) {
+      wigglePhase.current += dt * 14;
+      const hoverWiggle = Math.sin(wigglePhase.current) * 0.06;
+      ref.current.rotation.z += hoverWiggle;
+      ref.current.scale.setScalar(
+        THREE.MathUtils.lerp(ref.current.scale.x, 1.12, dt * 8),
+      );
+      // Soft emissive glow on hover
+      if (mat.current && !clicked) {
+        mat.current.color.copy(fillColor);
+        mat.current.emissive.copy(fillColor).multiplyScalar(0.25);
+        mat.current.emissiveIntensity = 1.0;
+      }
+    } else {
+      wigglePhase.current = 0;
+      ref.current.scale.setScalar(
+        THREE.MathUtils.lerp(ref.current.scale.x, 1.0, dt * 6),
+      );
+      // Reset
+      if (mat.current && !clicked) {
+        mat.current.color.copy(fillColor);
+        mat.current.emissive.setScalar(0);
+        mat.current.emissiveIntensity = 0;
+      }
+    }
+
+    // --- Click: smooth Y-spin + emissive glow pulse ---
+    if (clicked) {
+      if (clickTime.current < 0) clickTime.current = t;
+      const elapsed = t - clickTime.current;
+      if (elapsed < 1.5) {
+        // Smooth spin with easing
+        const spinProgress = Math.min(1, elapsed / 1.2);
+        const easeOut = 1 - Math.pow(1 - spinProgress, 3);
+        ref.current.rotation.y = easeOut * Math.PI * 2;
+        // Emissive glow pulse
+        if (mat.current) {
+          const glow = Math.sin((elapsed * Math.PI) / 1.5);
+          mat.current.color.copy(fillColor);
+          mat.current.emissive.copy(fillColor).multiplyScalar(0.5 * glow);
+          mat.current.emissiveIntensity = 1.0;
+        }
+        // Elastic scale pulse
+        const scalePulse = 1.0 + Math.sin((elapsed * Math.PI) / 1.5) * 0.15;
+        ref.current.scale.setScalar(scalePulse);
+      } else {
+        setClicked(false);
+        if (mat.current) {
+          mat.current.color.copy(fillColor);
+          mat.current.emissive.setScalar(0);
+          mat.current.emissiveIntensity = 0;
+        }
+      }
+    }
+
     invalidate();
   });
 
+  const handlePointerOver = useCallback((e: ThreeEvent<PointerEvent>) => {
+    e.stopPropagation();
+    setHovered(true);
+    document.body.style.cursor = "pointer";
+  }, []);
+
+  const handlePointerOut = useCallback(() => {
+    setHovered(false);
+    document.body.style.cursor = "auto";
+  }, []);
+
+  const handleClick = useCallback((e: ThreeEvent<MouseEvent>) => {
+    e.stopPropagation();
+    clickTime.current = -1;
+    setClicked(true);
+  }, []);
+
   return (
-    <group ref={ref} position={position}>
+    <group
+      ref={ref}
+      position={position}
+      onPointerOver={handlePointerOver}
+      onPointerOut={handlePointerOut}
+      onClick={handleClick}
+    >
+      <mesh visible={false}>
+        <planeGeometry
+          args={[text.length * size * 0.7 + 1.0, size * 2.5 + 0.6]}
+        />
+        <meshBasicMaterial transparent opacity={0} />
+      </mesh>
       <Center>
         <Text3D
           font="/fonts/helvetiker_regular.typeface.json"
           size={size}
-          height={0.06}
-          curveSegments={8}
-          bevelEnabled={false}
-          castShadow={false}
-          receiveShadow={false}
+          height={0.12}
+          curveSegments={12}
+          bevelEnabled={true}
+          bevelThickness={0.015}
+          bevelSize={0.008}
+          bevelSegments={4}
+          castShadow
+          receiveShadow
         >
           {text}
-          <meshBasicMaterial ref={mat} color={fillColor} toneMapped={false} />
+          <meshStandardMaterial
+            ref={mat}
+            color={fillColor}
+            metalness={0.1}
+            roughness={0.45}
+            toneMapped={false}
+          />
         </Text3D>
       </Center>
     </group>
