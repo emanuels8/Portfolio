@@ -26,9 +26,6 @@ const Projects: React.FC = () => {
       </Link>
 
       <header className="mb-12 max-w-2xl">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-teal-600 mb-3">
-          Portfolio
-        </p>
         <h2 className="text-3xl font-extrabold tracking-tight text-slate-800 sm:text-4xl">
           Selected Projects
         </h2>

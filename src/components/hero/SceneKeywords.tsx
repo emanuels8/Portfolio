@@ -69,7 +69,7 @@ export const leftKeywords: Keyword[] = [
 export const rightKeywords: Keyword[] = [
   {
     position: [0, 5.5, 0],
-    color: "#164e63",
+    color: "#0891b2",
     text: "Systems",
     size: 0.5,
     speed: 0.8,
@@ -91,7 +91,7 @@ export const rightKeywords: Keyword[] = [
   {
     position: [0, 0.4, 0],
     color: "#475569",
-    text: "Terraform",
+    text: "Tailwind",
     size: 0.4,
     speed: 0.75,
   },
@@ -112,7 +112,7 @@ export const rightKeywords: Keyword[] = [
   {
     position: [0, -4.7, 0],
     color: "#0891b2",
-    text: "gRPC",
+    text: "Github",
     size: 0.5,
     speed: 0.75,
   },
