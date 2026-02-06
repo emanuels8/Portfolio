@@ -1,6 +1,10 @@
 # Emanuel Sanchez — Portfolio
 
-Personal portfolio showcasing 4+ years of full-stack software engineering experience. [View Portfolio](https://www.emanuels8.com/)
+[![Live](https://img.shields.io/badge/Live-emanuels8.com-teal)](https://www.emanuels8.com/)
+
+Personal portfolio showcasing 4+ years of full-stack software engineering experience.
+
+[](https://github.com/user-attachments/assets/781426a1-a0cc-4bfd-ad10-d279d956558a)
 
 ## About
 
