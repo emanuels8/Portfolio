@@ -3,20 +3,28 @@ import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Hero from "./components/hero/Hero";
 import Projects from "./components/Projects";
+import Footer from "./components/Footer";
+import NotFound from "./components/NotFound";
 
 const App: React.FC = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Hero />} />
-      <Route
-        path="/projects"
-        element={
-          <div className="flex min-h-screen items-center justify-center">
-            <Projects />
-          </div>
-        }
-      />
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<Hero />} />
+        <Route
+          path="/projects"
+          element={
+            <div className="flex min-h-screen flex-col">
+              <div className="flex flex-1 items-center justify-center">
+                <Projects />
+              </div>
+              <Footer />
+            </div>
+          }
+        />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </>
   );
 };
 
