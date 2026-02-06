@@ -26,12 +26,15 @@ const Projects: React.FC = () => {
       </Link>
 
       <header className="mb-12 max-w-2xl">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-teal-600 mb-3">
+          Work
+        </p>
         <h2 className="text-3xl font-extrabold tracking-tight text-slate-800 sm:text-4xl">
-          Selected Projects
+          Professional Experience
         </h2>
         <p className="mt-3 text-base leading-relaxed text-slate-500">
-          A selection of meaningful work across cloud infrastructure, full-stack
-          development, and developer tooling.
+          Key projects and contributions across cloud infrastructure, full-stack
+          development.
         </p>
       </header>
 
