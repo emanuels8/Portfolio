@@ -12,7 +12,7 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/" element={<Hero />} />
         <Route
-          path="/projects"
+          path="/work"
           element={
             <div className="flex min-h-screen flex-col">
               <div className="flex flex-1 items-center justify-center">

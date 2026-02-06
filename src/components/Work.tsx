@@ -2,9 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { selectedWork } from "@/components/data";
 
-const Projects: React.FC = () => {
+const Work: React.FC = () => {
   return (
-    <section id="projects" className="mx-auto w-full max-w-4xl px-6 py-20">
+    <section id="work" className="mx-auto w-full max-w-4xl px-6 py-20">
       <Link
         to="/"
         className="group inline-flex items-center gap-2 text-sm font-medium mb-10 text-slate-500 transition-colors hover:text-teal-600"
@@ -79,4 +79,4 @@ const Projects: React.FC = () => {
   );
 };
 
-export default Projects;
+export default Work;

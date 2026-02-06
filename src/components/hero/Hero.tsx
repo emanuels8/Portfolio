@@ -29,7 +29,7 @@ const Hero: FC = () => {
       {isLoading && <FullPageLoader />}
       <section className="relative mx-auto w-full max-w-[100rem] px-0 py-0 md:px-0">
         <div className="grid min-h-screen grid-cols-1 items-center md:grid-cols-[1.2fr_2fr_1.2fr]">
-          <div className="hidden h-screen md:block">
+          <div className="hidden h-screen md:block" aria-hidden="true">
             <Suspense fallback={null}>
               <ScenePanel keywords={leftKeywords} />
             </Suspense>
@@ -67,7 +67,7 @@ const Hero: FC = () => {
 
             <div className="flex flex-wrap justify-center gap-4 pt-4 md:justify-start">
               <a
-                href="/projects"
+                href="/work"
                 className="group inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-teal-500 to-cyan-600 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-teal-500/25 transition-all duration-300 hover:shadow-xl hover:shadow-teal-500/30 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-2"
               >
                 View Work
@@ -160,7 +160,7 @@ const Hero: FC = () => {
             </div>
           </div>
 
-          <div className="hidden h-screen md:block">
+          <div className="hidden h-screen md:block" aria-hidden="true">
             <Suspense fallback={null}>
               <ScenePanel keywords={rightKeywords} />
             </Suspense>
