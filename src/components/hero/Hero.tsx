@@ -104,6 +104,27 @@ const Hero: FC = () => {
                   />
                 </svg>
               </button>
+              <a
+                href="https://game.emanuels8.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white/80 px-7 py-3.5 text-sm font-semibold text-slate-700 shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-teal-300 hover:text-teal-700 hover:shadow-md hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-2"
+              >
+                Play Bunny Game
+                <svg
+                  className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M13 7l5 5m0 0l-5 5m5-5H6"
+                  />
+                </svg>
+              </a>
             </div>
 
             {/* Social links */}
