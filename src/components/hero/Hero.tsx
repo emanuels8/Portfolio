@@ -50,7 +50,7 @@ const Hero: FC = () => {
           <p className="max-w-sm text-sm leading-relaxed text-slate-400 sm:max-w-lg sm:text-base md:max-w-xl md:text-lg">
             4+ years building scalable web applications with TypeScript, React,
             Go &amp; Ruby. Experienced in AWS cloud services, event-driven
-            architectures, and AI&#8209;powered features.
+            architectures, and AI powered features.
           </p>
 
           <div className="flex flex-wrap justify-center gap-3 pt-2 sm:gap-4">
@@ -64,7 +64,7 @@ const Hero: FC = () => {
               className="group inline-flex items-center justify-center gap-2 rounded-full border border-slate-600/60 bg-slate-800/40 px-5 py-2.5 text-xs font-semibold text-slate-300 backdrop-blur-sm transition-all duration-300 hover:border-teal-500/50 hover:text-teal-300 hover:shadow-md hover:shadow-teal-500/10 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-2 focus:ring-offset-[#0c1220] sm:px-7 sm:py-3.5 sm:text-sm"
               onClick={downloadResume}
             >
-              Resume
+              View Resume
             </button>
             <a
               href="https://game.emanuels8.com"
