@@ -14,7 +14,7 @@ const App: React.FC = () => {
         <Route
           path="/work"
           element={
-            <div className="flex min-h-screen flex-col">
+            <div className="flex min-h-screen flex-col bg-[#0c1220]">
               <div className="flex flex-1 items-center justify-center">
                 <Work />
               </div>
