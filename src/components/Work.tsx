@@ -42,7 +42,7 @@ const Work: React.FC = () => {
         {selectedWork.map((item, idx) => (
           <li
             key={item.title}
-            className="group relative rounded-2xl border border-slate-700/40 bg-slate-800/40 p-7 backdrop-blur-sm transition-all duration-300 hover:border-teal-500/30 hover:bg-slate-800/60 hover:shadow-lg hover:shadow-teal-500/5 hover:-translate-y-0.5"
+            className="group relative rounded-2xl border border-slate-700/40 bg-slate-800/40 p-7 backdrop-blur-sm transition-colors duration-300 hover:border-slate-600/60 hover:bg-slate-800/50"
           >
             <div className="absolute left-0 top-6 bottom-6 w-0.5 rounded-full bg-gradient-to-b from-teal-400 to-cyan-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
