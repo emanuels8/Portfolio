@@ -30,9 +30,9 @@ const Hero: FC = () => {
         <FluidBackground />
       </Suspense>
 
-      <section className="relative z-10 flex min-h-screen items-center justify-center px-6">
-        <div className="flex flex-col items-center space-y-7 text-center">
-          <h1 className="text-5xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl xl:text-8xl">
+      <section className="relative z-10 flex min-h-screen items-center justify-center px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col items-center space-y-4 sm:space-y-5 md:space-y-7 text-center">
+          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
             <span className="block bg-gradient-to-b from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
               Emanuel
             </span>
@@ -41,27 +41,27 @@ const Hero: FC = () => {
             </span>
           </h1>
 
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-teal-400/70 sm:text-sm">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-teal-400/70 sm:text-xs sm:tracking-[0.3em] md:text-sm">
             Full-Stack Software Engineer
           </p>
 
           <div className="h-px w-16 bg-gradient-to-r from-transparent via-teal-500/40 to-transparent" />
 
-          <p className="max-w-xl text-base leading-relaxed text-slate-400 sm:text-lg">
+          <p className="max-w-sm text-sm leading-relaxed text-slate-400 sm:max-w-lg sm:text-base md:max-w-xl md:text-lg">
             4+ years building scalable web applications with TypeScript, React,
             Go &amp; Ruby. Experienced in AWS cloud services, event-driven
             architectures, and AI&#8209;powered features.
           </p>
 
-          <div className="flex flex-wrap justify-center gap-4 pt-2">
+          <div className="flex flex-wrap justify-center gap-3 pt-2 sm:gap-4">
             <a
               href="/work"
-              className="group inline-flex items-center justify-center gap-2 rounded-full bg-teal-500 px-7 py-3.5 text-sm font-semibold text-slate-950 shadow-lg shadow-teal-500/20 transition-all duration-300 hover:bg-teal-400 hover:shadow-xl hover:shadow-teal-400/25 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-2 focus:ring-offset-[#0c1220]"
+              className="group inline-flex items-center justify-center gap-2 rounded-full bg-teal-500 px-5 py-2.5 text-xs font-semibold text-slate-950 shadow-lg shadow-teal-500/20 transition-all duration-300 hover:bg-teal-400 hover:shadow-xl hover:shadow-teal-400/25 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-2 focus:ring-offset-[#0c1220] sm:px-7 sm:py-3.5 sm:text-sm"
             >
               View Work
             </a>
             <button
-              className="group inline-flex items-center justify-center gap-2 rounded-full border border-slate-600/60 bg-slate-800/40 px-7 py-3.5 text-sm font-semibold text-slate-300 backdrop-blur-sm transition-all duration-300 hover:border-teal-500/50 hover:text-teal-300 hover:shadow-md hover:shadow-teal-500/10 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-2 focus:ring-offset-[#0c1220]"
+              className="group inline-flex items-center justify-center gap-2 rounded-full border border-slate-600/60 bg-slate-800/40 px-5 py-2.5 text-xs font-semibold text-slate-300 backdrop-blur-sm transition-all duration-300 hover:border-teal-500/50 hover:text-teal-300 hover:shadow-md hover:shadow-teal-500/10 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-2 focus:ring-offset-[#0c1220] sm:px-7 sm:py-3.5 sm:text-sm"
               onClick={downloadResume}
             >
               Resume
@@ -70,13 +70,13 @@ const Hero: FC = () => {
               href="https://game.emanuels8.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center gap-2 rounded-full border border-slate-600/60 bg-slate-800/40 px-7 py-3.5 text-sm font-semibold text-slate-300 backdrop-blur-sm transition-all duration-300 hover:border-teal-500/50 hover:text-teal-300 hover:shadow-md hover:shadow-teal-500/10 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-2 focus:ring-offset-[#0c1220]"
+              className="group inline-flex items-center justify-center gap-2 rounded-full border border-slate-600/60 bg-slate-800/40 px-5 py-2.5 text-xs font-semibold text-slate-300 backdrop-blur-sm transition-all duration-300 hover:border-teal-500/50 hover:text-teal-300 hover:shadow-md hover:shadow-teal-500/10 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-2 focus:ring-offset-[#0c1220] sm:px-7 sm:py-3.5 sm:text-sm"
             >
               Play Game
             </a>
           </div>
 
-          <div className="flex items-center gap-5 pt-2">
+          <div className="flex items-center gap-4 pt-1 sm:gap-5 sm:pt-2">
             <a
               href="https://linkedin.com/in/emanuel-sanchez-"
               target="_blank"
@@ -120,7 +120,7 @@ const Hero: FC = () => {
             </a>
           </div>
 
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 animate-bounce sm:bottom-8">
             <svg
               className="h-5 w-5 text-slate-600"
               fill="none"

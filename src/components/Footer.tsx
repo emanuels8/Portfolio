@@ -3,7 +3,7 @@ import type { FC } from "react";
 const Footer: FC = () => {
   return (
     <footer className="w-full border-t border-slate-700/40 bg-[#0c1220]/80 backdrop-blur-sm">
-      <div className="mx-auto flex max-w-4xl flex-col items-center gap-4 px-6 py-8 sm:flex-row sm:justify-between">
+      <div className="mx-auto flex max-w-4xl flex-col items-center gap-3 px-4 py-6 sm:flex-row sm:justify-between sm:gap-4 sm:px-6 sm:py-8">
         <p className="text-xs text-slate-500">
           &copy; {new Date().getFullYear()} Emanuel Sanchez
         </p>
