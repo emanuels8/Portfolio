@@ -4,13 +4,16 @@ import { selectedWork } from "@/components/data";
 
 const Work: React.FC = () => {
   return (
-    <section id="work" className="mx-auto w-full max-w-4xl px-6 py-20">
+    <section
+      id="work"
+      className="mx-auto w-full max-w-4xl px-4 py-10 sm:px-6 sm:py-16 md:py-20"
+    >
       <Link
         to="/"
-        className="group inline-flex items-center gap-2 text-sm font-medium mb-10 text-slate-500 transition-colors hover:text-teal-600"
+        className="group inline-flex items-center gap-1.5 text-xs font-medium mb-6 text-slate-400 transition-colors hover:text-teal-400 sm:gap-2 sm:text-sm sm:mb-10"
       >
         <svg
-          className="h-4 w-4 transition-transform group-hover:-translate-x-0.5"
+          className="h-4 w-4 transition-transform group-hover:-translate-x-0.5 text-current"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -25,47 +28,47 @@ const Work: React.FC = () => {
         Back to Home
       </Link>
 
-      <header className="mb-12 max-w-2xl">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-teal-600 mb-3">
+      <header className="mb-8 max-w-2xl sm:mb-12">
+        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-teal-400 mb-2 sm:text-xs sm:mb-3">
           Work
         </p>
-        <h2 className="text-3xl font-extrabold tracking-tight text-slate-800 sm:text-4xl">
+        <h2 className="text-2xl font-extrabold tracking-tight text-slate-100 sm:text-3xl md:text-4xl">
           Professional Experience
         </h2>
-        <p className="mt-3 text-base leading-relaxed text-slate-500">
+        <p className="mt-2 text-sm leading-relaxed text-slate-400 sm:mt-3 sm:text-base">
           Key projects and contributions across cloud infrastructure, full-stack
           development.
         </p>
       </header>
 
-      <ul className="space-y-5">
+      <ul className="space-y-3 sm:space-y-5">
         {selectedWork.map((item, idx) => (
           <li
             key={item.title}
-            className="group relative rounded-2xl border border-slate-200/60 bg-white/60 p-7 backdrop-blur-sm transition-all duration-300 hover:border-teal-200 hover:bg-white/80 hover:shadow-lg hover:shadow-teal-500/5 hover:-translate-y-0.5"
+            className="group relative rounded-xl border border-slate-700/40 bg-slate-800/40 p-4 backdrop-blur-sm transition-colors duration-300 hover:border-slate-600/60 hover:bg-slate-800/50 sm:rounded-2xl sm:p-7"
           >
-            <div className="absolute left-0 top-6 bottom-6 w-0.5 rounded-full bg-gradient-to-b from-teal-400 to-cyan-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+            <div className="absolute left-0 top-4 bottom-4 w-0.5 rounded-full bg-gradient-to-b from-teal-400 to-cyan-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100 sm:top-6 sm:bottom-6" />
 
-            <article className="space-y-4 pl-1">
+            <article className="space-y-3 pl-1 sm:space-y-4">
               <div className="flex items-start justify-between gap-4">
                 <div className="space-y-1.5">
-                  <h3 className="text-lg font-semibold tracking-tight text-slate-800 transition-colors group-hover:text-teal-700">
+                  <h3 className="text-base font-semibold tracking-tight text-slate-200 transition-colors group-hover:text-teal-300 sm:text-lg">
                     {item.title}
                   </h3>
-                  <p className="text-sm leading-relaxed text-slate-500">
+                  <p className="text-xs leading-relaxed text-slate-400 sm:text-sm">
                     {item.summary}
                   </p>
                 </div>
-                <span className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-100 text-xs font-medium text-slate-400 transition-colors group-hover:bg-teal-50 group-hover:text-teal-600">
+                <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-slate-700/50 text-[10px] font-medium text-slate-400 transition-colors group-hover:bg-teal-900/30 group-hover:text-teal-400 sm:mt-1 sm:h-8 sm:w-8 sm:text-xs">
                   {String(idx + 1).padStart(2, "0")}
                 </span>
               </div>
 
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-1.5 sm:gap-2">
                 {item.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600 transition-colors group-hover:bg-teal-50 group-hover:text-teal-700"
+                    className="rounded-full bg-slate-700/40 px-2 py-0.5 text-[10px] font-medium text-slate-400 transition-colors group-hover:bg-teal-900/30 group-hover:text-teal-300 sm:px-3 sm:py-1 sm:text-xs"
                   >
                     {tag}
                   </span>
