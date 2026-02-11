@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const NotFound: FC = () => {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-[#0c1220] px-6 text-center">
+    <main className="flex min-h-screen flex-col items-center justify-center bg-[#0c1220] px-6 text-center">
       <p className="text-sm font-semibold uppercase tracking-[0.2em] text-teal-400">
         404
       </p>
@@ -32,7 +32,7 @@ const NotFound: FC = () => {
         </svg>
         Back to Home
       </Link>
-    </div>
+    </main>
   );
 };
 

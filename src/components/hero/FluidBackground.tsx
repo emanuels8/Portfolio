@@ -1,10 +1,10 @@
 import { useRef, useEffect, useCallback } from "react";
 import type { FC } from "react";
-import * as THREE from "three";
 
 const VERTEX = `
+  attribute vec2 position;
   void main() {
-    gl_Position = vec4(position, 1.0);
+    gl_Position = vec4(position, 0.0, 1.0);
   }
 `;
 
@@ -25,13 +25,12 @@ const FRAGMENT = `
   vec2 mod289v2(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
   vec3 permute(vec3 x) { return mod289((x * 34.0 + 1.0) * x); }
 
-  
   float snoise(vec2 v) {
     const vec4 C = vec4(
-       0.211324865405187,   
-       0.366025403784439,   
-      -0.577350269189626,  
-       0.024390243902439    
+       0.211324865405187,
+       0.366025403784439,
+      -0.577350269189626,
+       0.024390243902439
     );
     vec2 i = floor(v + dot(v, C.yy));
     vec2 x0 = v - i + dot(i, C.xx);
@@ -61,7 +60,6 @@ const FRAGMENT = `
 
     float t = uTime * 0.18;
 
-   
     vec2 mouse = (uMouse - 0.5) * vec2(aspect, 1.0);
     vec2 toMouse = mouse - p;
     float mDist = length(toMouse);
@@ -74,7 +72,7 @@ const FRAGMENT = `
     float n4 = snoise(p * 8.0 + vec2(-t * 0.35, t * 0.25) + n3 * 0.3);
     float ether = n1 * 0.5 + n2 * 0.25 + n3 * 0.125 + n4 * 0.0625;
     ether = ether * 0.5 + 0.5;
-    
+
     vec3 col;
     if (ether < 0.33) {
       col = mix(TEAL, EMERALD, ether / 0.33);
@@ -83,13 +81,13 @@ const FRAGMENT = `
     } else {
       col = mix(CYAN, GREEN, (ether - 0.66) / 0.34);
     }
-    
+
     float bright = snoise(p * 2.0 + vec2(t * 0.3, -t * 0.4)) * 0.5 + 0.5;
     bright = smoothstep(0.15, 0.85, bright);
 
     float intensity = smoothstep(0.2, 0.75, ether) * (0.3 + bright * 0.35);
     vec3 result = mix(BG, col, intensity);
-  
+
     float glow = exp(-mDist * 3.5) * 0.1;
     vec3 glowCol = mix(TEAL, EMERALD, sin(uTime * 0.5) * 0.5 + 0.5);
     result += glowCol * glow;
@@ -101,8 +99,31 @@ const FRAGMENT = `
   }
 `;
 
+function compileShader(
+  gl: WebGLRenderingContext,
+  type: number,
+  source: string,
+): WebGLShader {
+  const shader = gl.createShader(type)!;
+  gl.shaderSource(shader, source);
+  gl.compileShader(shader);
+  return shader;
+}
+
+function createProgram(
+  gl: WebGLRenderingContext,
+  vs: string,
+  fs: string,
+): WebGLProgram {
+  const program = gl.createProgram()!;
+  gl.attachShader(program, compileShader(gl, gl.VERTEX_SHADER, vs));
+  gl.attachShader(program, compileShader(gl, gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(program);
+  return program;
+}
+
 const FluidBackground: FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: 0.5, y: 0.5 });
   const rafRef = useRef(0);
 
@@ -114,80 +135,74 @@ const FluidBackground: FC = () => {
   }, []);
 
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
 
-    const renderer = new THREE.WebGLRenderer({
+    const gl = canvas.getContext("webgl", {
       antialias: false,
       alpha: false,
       powerPreference: "high-performance",
-    });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    container.appendChild(renderer.domElement);
+    })!;
 
-    const scene = new THREE.Scene();
-    const camera = new THREE.Camera();
+    const program = createProgram(gl, VERTEX, FRAGMENT);
+    gl.useProgram(program);
 
-    const uniforms = {
-      uTime: { value: 0 },
-      uResolution: {
-        value: new THREE.Vector2(window.innerWidth, window.innerHeight),
-      },
-      uMouse: { value: new THREE.Vector2(0.5, 0.5) },
+    const buf = gl.createBuffer()!;
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(
+      gl.ARRAY_BUFFER,
+      new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]),
+      gl.STATIC_DRAW,
+    );
+
+    const posLoc = gl.getAttribLocation(program, "position");
+    gl.enableVertexAttribArray(posLoc);
+    gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+
+    const uTime = gl.getUniformLocation(program, "uTime");
+    const uResolution = gl.getUniformLocation(program, "uResolution");
+    const uMouse = gl.getUniformLocation(program, "uMouse");
+
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      gl.viewport(0, 0, canvas.width, canvas.height);
+      gl.uniform2f(uResolution, canvas.width, canvas.height);
     };
+    resize();
 
-    const material = new THREE.ShaderMaterial({
-      vertexShader: VERTEX,
-      fragmentShader: FRAGMENT,
-      uniforms,
-      depthTest: false,
-      depthWrite: false,
-    });
-
-    const geometry = new THREE.PlaneGeometry(2, 2);
-    scene.add(new THREE.Mesh(geometry, material));
-
-    const handleResize = () => {
-      const w = window.innerWidth;
-      const h = window.innerHeight;
-      renderer.setSize(w, h);
-      uniforms.uResolution.value.set(w, h);
-    };
-
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", resize);
     window.addEventListener("mousemove", handleMouseMove);
 
     const smoothMouse = { x: 0.5, y: 0.5 };
+    const t0 = performance.now();
 
-    const clock = new THREE.Clock();
     const animate = () => {
       rafRef.current = requestAnimationFrame(animate);
 
-      uniforms.uTime.value = clock.getElapsedTime();
+      const elapsed = (performance.now() - t0) / 1000;
+      gl.uniform1f(uTime, elapsed);
 
       smoothMouse.x += (mouseRef.current.x - smoothMouse.x) * 0.04;
       smoothMouse.y += (mouseRef.current.y - smoothMouse.y) * 0.04;
-      uniforms.uMouse.value.set(smoothMouse.x, 1.0 - smoothMouse.y);
+      gl.uniform2f(uMouse, smoothMouse.x, 1.0 - smoothMouse.y);
 
-      renderer.render(scene, camera);
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
     };
     animate();
 
     return () => {
       cancelAnimationFrame(rafRef.current);
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", handleMouseMove);
-      renderer.dispose();
-      geometry.dispose();
-      material.dispose();
-      container.removeChild(renderer.domElement);
+      gl.deleteBuffer(buf);
+      gl.deleteProgram(program);
     };
   }, [handleMouseMove]);
 
   return (
-    <div
-      ref={containerRef}
+    <canvas
+      ref={canvasRef}
       className="pointer-events-none fixed inset-0 -z-10"
       aria-hidden="true"
     />
