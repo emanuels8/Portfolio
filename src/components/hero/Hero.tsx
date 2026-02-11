@@ -24,7 +24,7 @@ const Hero: FC = () => {
   }, []);
 
   return (
-    <>
+    <main>
       {isLoading && <FullPageLoader />}
       <Suspense fallback={null}>
         <FluidBackground />
@@ -137,7 +137,7 @@ const Hero: FC = () => {
           </div>
         </div>
       </section>
-    </>
+    </main>
   );
 };
 
